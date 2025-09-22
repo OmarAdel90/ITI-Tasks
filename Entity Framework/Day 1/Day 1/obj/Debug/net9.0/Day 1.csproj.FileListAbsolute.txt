@@ -1,0 +1,15 @@
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\bin\Debug\net9.0\Day 1.exe
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\bin\Debug\net9.0\Day 1.deps.json
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\bin\Debug\net9.0\Day 1.runtimeconfig.json
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\bin\Debug\net9.0\Day 1.dll
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\bin\Debug\net9.0\Day 1.pdb
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\obj\Debug\net9.0\Day 1.GeneratedMSBuildEditorConfig.editorconfig
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\obj\Debug\net9.0\Day 1.AssemblyInfoInputs.cache
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\obj\Debug\net9.0\Day 1.AssemblyInfo.cs
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\obj\Debug\net9.0\Day 1.csproj.CoreCompileInputs.cache
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\obj\Debug\net9.0\Day 1.sourcelink.json
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\obj\Debug\net9.0\Day 1.dll
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\obj\Debug\net9.0\refint\Day 1.dll
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\obj\Debug\net9.0\Day 1.pdb
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\obj\Debug\net9.0\Day 1.genruntimeconfig.cache
+E:\ITI-Tasks\Entity Framework\Day 1\Day 1\obj\Debug\net9.0\ref\Day 1.dll
