@@ -1,0 +1,63 @@
+﻿@model MVC.Models.Course
+
+@{
+    ViewData["Title"] = "Edit Course";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Edit Course</h2>
+
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="control-label">Course Name</label>
+                    <input asp-for="Name" class="form-control" type="text" required 
+                           placeholder="Enter course name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Degree" class="control-label">Degree</label>
+                    <input asp-for="Degree" class="form-control" type="number" required 
+                           placeholder="Enter course degree" />
+                    <span asp-validation-for="Degree" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label asp-for="MinimumDegree" class="control-label">Minimum Degree</label>
+                    <input asp-for="MinimumDegree" class="form-control" type="number" required 
+                           placeholder="Enter minimum required degree" />
+                    <span asp-validation-for="MinimumDegree" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Hours" class="control-label">Hours</label>
+                    <input asp-for="Hours" class="form-control" type="number" required 
+                           placeholder="Enter course hours" />
+                    <span asp-validation-for="Hours" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label asp-for="DeptId" class="control-label">Department</label>
+                    <select asp-for="DeptId" class="form-control" required
+                            asp-items="@(new SelectList(ViewBag.Departments, "Id", "Name"))">
+                        <option value="">-- Select Department --</option>
+                    </select>
+                    <span asp-validation-for="DeptId" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

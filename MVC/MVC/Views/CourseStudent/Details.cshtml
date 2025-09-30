@@ -1,0 +1,73 @@
+﻿@model MVC.Models.CourseStudents
+
+@{
+    ViewData["Title"] = "Enrollment Details";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Enrollment Details</h2>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back to List
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Course Enrollment</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">Enrollment ID:</dt>
+                        <dd class="col-sm-8">@Model.Id</dd>
+
+                        <dt class="col-sm-4">Student:</dt>
+                        <dd class="col-sm-8">@Model.Student?.Name</dd>
+
+                        <dt class="col-sm-4">Course:</dt>
+                        <dd class="col-sm-8">@Model.Course?.Name</dd>
+
+                        <dt class="col-sm-4">Degree:</dt>
+                        <dd class="col-sm-8">@Model.Degree</dd>
+
+                        <dt class="col-sm-4">Minimum Required:</dt>
+                        <dd class="col-sm-8">@Model.Course?.MinimumDegree</dd>
+
+                        <dt class="col-sm-4">Status:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Degree >= Model.Course?.MinimumDegree)
+                            {
+                                <span class="badge bg-success">Passed</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Failed</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style>
+    .card {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    
+    .card-header {
+        font-weight: 600;
+    }
+    
+    dt {
+        font-weight: 600;
+        color: #555;
+    }
+    
+    .badge {
+        font-size: 0.9em;
+    }
+</style>

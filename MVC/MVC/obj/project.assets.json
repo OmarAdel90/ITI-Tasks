@@ -4717,11 +4717,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\MVC\\MVC\\MVC.csproj",
+      "projectUniqueName": "E:\\ITI-Tasks\\MVC\\MVC\\MVC.csproj",
       "projectName": "MVC",
-      "projectPath": "D:\\MVC\\MVC\\MVC.csproj",
+      "projectPath": "E:\\ITI-Tasks\\MVC\\MVC\\MVC.csproj",
       "packagesPath": "C:\\Users\\Omar\\.nuget\\packages\\",
-      "outputPath": "D:\\MVC\\MVC\\obj\\",
+      "outputPath": "E:\\ITI-Tasks\\MVC\\MVC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages"

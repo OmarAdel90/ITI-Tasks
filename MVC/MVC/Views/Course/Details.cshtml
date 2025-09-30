@@ -1,0 +1,64 @@
+﻿@model MVC.Models.Course
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Course Details</h2>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back to List
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">@Model.Name</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">Course ID:</dt>
+                        <dd class="col-sm-8">@Model.Id</dd>
+
+                        <dt class="col-sm-4">Course Name:</dt>
+                        <dd class="col-sm-8">@Model.Name</dd>
+
+                        <dt class="col-sm-4">Degree:</dt>
+                        <dd class="col-sm-8">@Model.Degree</dd>
+
+                        <dt class="col-sm-4">Minimum Degree:</dt>
+                        <dd class="col-sm-8">@Model.MinimumDegree</dd>
+
+                        <dt class="col-sm-4">Hours:</dt>
+                        <dd class="col-sm-8">@Model.Hours</dd>
+
+                        <dt class="col-sm-4">Department ID:</dt>
+                        <dd class="col-sm-8">@Model.DeptId</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    
+    .card-header {
+        font-weight: 600;
+    }
+    
+    dt {
+        font-weight: 600;
+    }
+    
+    .table th {
+        background-color: #f8f9fa;
+    }
+</style>
