@@ -1,64 +1,53 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVC.Models;
+using MVC.Repositories;
 
 namespace MVC.Controllers
 {
     public class InstructorController : Controller
     {
-        private readonly AppDbContext context;
-        public InstructorController(AppDbContext context) => this.context = context;
+        private readonly InstructorRepository repo;
+        public InstructorController(InstructorRepository repo) => this.repo = repo;
         public IActionResult Index()
         {
-            var instructors = context.Instructors
-                .Include(i => i.Department)
-                .Include(i => i.Course)
-                .ToList();
-            return View(instructors);
+            return View(repo.ReturnInstructors());
         }
         public IActionResult Create(int id)
         {
-            ViewBag.Departments = context.Departments.ToList();
-            ViewBag.Courses = context.Courses.ToList();
+            ViewBag.Departments = repo.ReturnDepartments();
+            ViewBag.Courses = repo.ReturnCourses();
             return View();
         }
         [HttpPost]
         public IActionResult Create(Instructor instructor)
         {
-            context.Add(instructor);
-            context.SaveChanges();
+            repo.CreateInstructor(instructor);
             return RedirectToAction("Index");
         }
 
         public IActionResult Edit(int id)
         {
-            var instructor = context.Instructors.Find(id);
-            ViewBag.Departments = context.Departments.ToList();
-            ViewBag.Courses = context.Courses.ToList();
+            var instructor = repo.FindInstructor(id);
+            ViewBag.Departments = repo.ReturnDepartments();
+            ViewBag.Courses = repo.ReturnCourses();
             return View(instructor);
         }
         [HttpPost]
         public IActionResult Edit(Instructor instructor)
         {
-            context.Update(instructor);
-            context.SaveChanges();
+            repo.EditInstructor(instructor);
             return RedirectToAction("Index");
         }
 
         public IActionResult Details(int id)
         {
-            var instructor = context.Instructors
-                .Include(i => i.Department)
-                .Include(i => i.Course)
-                .FirstOrDefault(i => i.Id == id);
-            return View(instructor);
+            return View(repo.ReturnDetails(id));
         }
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var instructor = context.Instructors.Find(id);
-            context.Remove(instructor);
-            context.SaveChanges();
+            repo.DeleteInstructor(id);
             return RedirectToAction("Index");
         }
     }

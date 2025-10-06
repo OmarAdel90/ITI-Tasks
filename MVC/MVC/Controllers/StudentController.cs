@@ -1,58 +1,49 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVC.Models;
+using MVC.Repositories;
 
 namespace MVC.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly AppDbContext context;
-        public StudentController(AppDbContext context) => this.context = context;
+        private readonly StudentRepository repo;
+        public StudentController(StudentRepository repo) => this.repo = repo;
         public IActionResult Index()
         {
-            var students = context.Students.Include(s => s.Department).ToList();
-            return View("Index", students);
+            return View(repo.ReturnStudents());
         }
         public IActionResult Details(int id)
         {
-            var student = context.Students
-                .Include(s => s.Department)
-                .Include(s => s.CourseStudents)
-                    .ThenInclude(cs => cs.Course)
-                .FirstOrDefault(s => s.Id == id);
-            return View("Details", student);
+            return View(repo.ReturnDetails(id));
         }
         public IActionResult Create()
         {
-            ViewBag.Departments = context.Departments.ToList();
+            ViewBag.Departments = repo.ReturnDepartments();
             return View();
         }
         [HttpPost]
         public IActionResult Create(Student student)
         {
-            context.Add(student);
-            context.SaveChanges();
+            repo.CreateStudent(student);
             return RedirectToAction("Index");
         }
         public IActionResult Edit(int id)
         {
-            var student = context.Students.Find(id);
-            ViewBag.Departments = context.Departments.ToList();
+            var student = repo.ReturnDetails(id);
+            ViewBag.Departments = repo.ReturnDepartments();
             return View("Edit", student);
         }
         [HttpPost]
         public IActionResult Edit(Student student)
         {
-            context.Update(student);
-            context.SaveChanges();
+            repo.EditStudent(student);
             return RedirectToAction("Index");
         }
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var student = context.Students.Find(id);
-            context.Remove(student);
-            context.SaveChanges();
+            repo.DeleteStudent(id);
             return RedirectToAction("Index");
         }
     }

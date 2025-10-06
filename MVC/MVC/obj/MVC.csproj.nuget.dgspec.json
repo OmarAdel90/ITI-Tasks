@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ITI-Tasks\\MVC\\MVC\\MVC.csproj": {}
+    "D:\\ITI-Tasks\\MVC\\MVC\\MVC.csproj": {}
   },
   "projects": {
-    "E:\\ITI-Tasks\\MVC\\MVC\\MVC.csproj": {
+    "D:\\ITI-Tasks\\MVC\\MVC\\MVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ITI-Tasks\\MVC\\MVC\\MVC.csproj",
+        "projectUniqueName": "D:\\ITI-Tasks\\MVC\\MVC\\MVC.csproj",
         "projectName": "MVC",
-        "projectPath": "E:\\ITI-Tasks\\MVC\\MVC\\MVC.csproj",
+        "projectPath": "D:\\ITI-Tasks\\MVC\\MVC\\MVC.csproj",
         "packagesPath": "C:\\Users\\Omar\\.nuget\\packages\\",
-        "outputPath": "E:\\ITI-Tasks\\MVC\\MVC\\obj\\",
+        "outputPath": "D:\\ITI-Tasks\\MVC\\MVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages"

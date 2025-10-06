@@ -1,22 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVC.Models;
+using MVC.Repositories;
 
 namespace MVC.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly AppDbContext context;
-        public DepartmentController(AppDbContext context) => this.context = context;
+        private readonly DepartmentRepository repo;
+        public DepartmentController(DepartmentRepository repo) => this.repo = repo;
         public IActionResult Index()
         {
-            List<Department> departments = context.Departments.ToList();
-            return View("Index",departments);
+            List<Department> departments = repo.ReturnDepartments();
+            return View(departments);
         }
         public IActionResult Details(int id)
         {
-            var department = context.Departments.Find(id);
-            return View("Details", department);
+            var department = repo.ReturnDetails(id);
+            return View(department);
         }
         public IActionResult Create()
         {
@@ -25,28 +26,32 @@ namespace MVC.Controllers
         [HttpPost]
         public IActionResult Create(Department department)
         {
-            context.Add(department);
-            context.SaveChanges();
+            repo.CreateDepartment(department);
             return RedirectToAction("Index");
         }
         public IActionResult Edit(int id)
         {
-            var department = context.Departments.Find(id);
-            return View("Edit", department);
+            var department = repo.ReturnDetails(id);
+            return View(department);
         }
         [HttpPost]
         public IActionResult Edit(Department department)
         {
-            context.Update(department);
-            context.SaveChanges();
+            repo.EditDepartment(department);
             return RedirectToAction("Index");
         }
-        [HttpPost]
         public IActionResult Delete(int id)
         {
-            var department = context.Departments.Find(id);
-            context.Remove(department);
-            context.SaveChanges();
+            try
+            {
+                repo.DeleteDepartment(id);
+                TempData["Success"] = "Department deleted successfully!";
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["Error"] = ex.Message;
+                TempData.Keep();
+            }
             return RedirectToAction("Index");
         }
     }

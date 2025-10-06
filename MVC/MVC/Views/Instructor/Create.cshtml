@@ -49,9 +49,9 @@
                 
                 <div class="form-group mb-3">
                     <label asp-for="CrsId" class="control-label">Course</label>
-                    <select asp-for="CrsId" class="form-control" required
+                    <select asp-for="CrsId" class="form-control"
                             asp-items="@(new SelectList(ViewBag.Courses, "Id", "Name"))">
-                        <option value="">-- Select Course --</option>
+                        <option value="">-- No Course Assigned --</option>
                     </select>
                     <span asp-validation-for="CrsId" class="text-danger"></span>
                 </div>

@@ -1,69 +1,57 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVC.Models;
+using MVC.Repositories;
 
 namespace MVC.Controllers
 {
     public class CourseStudentController : Controller
     {
-        private readonly AppDbContext context;
-        public CourseStudentController(AppDbContext context) => this.context = context;
+        private readonly CourseStudentRepository repo;
+        public CourseStudentController(CourseStudentRepository repo) => this.repo = repo;
         public IActionResult Index()
         {
-            var enrollments = context.CourseStudents
-                .Include(cs => cs.Student)
-                .Include(cs => cs.Course)
-                .ToList();
+            var enrollments = repo.ReturnEnrollments();
             return View(enrollments);
         }
 
         public IActionResult Create()
         {
-            ViewBag.Students = context.Students.ToList();
-            ViewBag.Courses = context.Courses.ToList();
+            ViewBag.Students = repo.ReturnStudents();
+            ViewBag.Courses = repo.ReturnCourses();
             return View();
         }
         [HttpPost]
         public IActionResult Create(CourseStudents courseStudent)
         {
-            context.Add(courseStudent);
-            context.SaveChanges();
+            repo.CreateEnrollment(courseStudent);
             return RedirectToAction("Index");
         }
 
         public IActionResult Edit(int id)
         {
-            var enrollment = context.CourseStudents.Find(id);
-            ViewBag.Students = context.Students.ToList();
-            ViewBag.Courses = context.Courses.ToList();
+            var enrollment = repo.FindEnrollment(id);
+            ViewBag.Students = repo.ReturnStudents();
+            ViewBag.Courses = repo.ReturnCourses();
             return View(enrollment);
         }
         [HttpPost]
         public IActionResult Edit(CourseStudents courseStudent)
         {
-            context.Update(courseStudent);
-            context.SaveChanges();
+            repo.EditEnrollment(courseStudent);
             return RedirectToAction("Index");
         }
 
         public IActionResult Details(int id)
         {
-            var enrollment = context.CourseStudents
-                .Include(cs => cs.Student)
-                .Include(cs => cs.Course)
-                .FirstOrDefault(cs => cs.Id == id);
+            var enrollment = repo.ReturnDetails(id);
             return View(enrollment);
         }
 
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var enrollment = context.CourseStudents.Find(id);
-            if (enrollment != null)
-            {
-                context.CourseStudents.Remove(enrollment);
-                context.SaveChanges();
-            }
+            repo.DeleteEnrollment(id);
             return RedirectToAction("Index");
         }
     }

@@ -1,34 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\ITI-Tasks\\MVC\\",
+  "WorkspaceRootPath": "D:\\ITI-Tasks\\MVC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|e:\\iti-tasks\\mvc\\mvc\\controllers\\coursestudentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|solutionrelative:mvc\\controllers\\coursestudentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|d:\\iti-tasks\\mvc\\mvc\\repositories\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|solutionrelative:mvc\\repositories\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|e:\\iti-tasks\\mvc\\mvc\\views\\coursestudent\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\coursestudent\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|d:\\iti-tasks\\mvc\\mvc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|solutionrelative:mvc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|e:\\iti-tasks\\mvc\\mvc\\views\\coursestudent\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\coursestudent\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|e:\\iti-tasks\\mvc\\mvc\\views\\coursestudent\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\coursestudent\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|e:\\iti-tasks\\mvc\\mvc\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|d:\\iti-tasks\\mvc\\mvc\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|solutionrelative:mvc\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|e:\\iti-tasks\\mvc\\mvc\\views\\coursestudent\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\coursestudent\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|e:\\iti-tasks\\mvc\\mvc\\models\\coursestudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{961831BB-44DB-4463-B49F-B155D20B6138}|MVC\\MVC.csproj|solutionrelative:mvc\\models\\coursestudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,93 +34,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "StudentController.cs",
-              "DocumentMoniker": "E:\\ITI-Tasks\\MVC\\MVC\\Controllers\\StudentController.cs",
+              "DocumentMoniker": "D:\\ITI-Tasks\\MVC\\MVC\\Controllers\\StudentController.cs",
               "RelativeDocumentMoniker": "MVC\\Controllers\\StudentController.cs",
-              "ToolTip": "E:\\ITI-Tasks\\MVC\\MVC\\Controllers\\StudentController.cs",
+              "ToolTip": "D:\\ITI-Tasks\\MVC\\MVC\\Controllers\\StudentController.cs",
               "RelativeToolTip": "MVC\\Controllers\\StudentController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAwwAkAAABRAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAmwC0AAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-30T18:15:31.507Z",
+              "WhenOpened": "2025-10-06T12:26:34.592Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CourseStudentController.cs",
-              "DocumentMoniker": "E:\\ITI-Tasks\\MVC\\MVC\\Controllers\\CourseStudentController.cs",
-              "RelativeDocumentMoniker": "MVC\\Controllers\\CourseStudentController.cs",
-              "ToolTip": "E:\\ITI-Tasks\\MVC\\MVC\\Controllers\\CourseStudentController.cs*",
-              "RelativeToolTip": "MVC\\Controllers\\CourseStudentController.cs*",
-              "ViewState": "AgIAABcAAAAAAAAAAAAwwC0AAAAqAAAAAAAAAA==",
+              "Title": "StudentRepository.cs",
+              "DocumentMoniker": "D:\\ITI-Tasks\\MVC\\MVC\\Repositories\\StudentRepository.cs",
+              "RelativeDocumentMoniker": "MVC\\Repositories\\StudentRepository.cs",
+              "ToolTip": "D:\\ITI-Tasks\\MVC\\MVC\\Repositories\\StudentRepository.cs",
+              "RelativeToolTip": "MVC\\Repositories\\StudentRepository.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAkwCcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-30T18:13:26.523Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "E:\\ITI-Tasks\\MVC\\MVC\\Views\\CourseStudent\\Details.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\CourseStudent\\Details.cshtml",
-              "ToolTip": "E:\\ITI-Tasks\\MVC\\MVC\\Views\\CourseStudent\\Details.cshtml",
-              "RelativeToolTip": "MVC\\Views\\CourseStudent\\Details.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAADQAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-30T18:12:43.052Z",
+              "WhenOpened": "2025-10-06T12:26:29.39Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "E:\\ITI-Tasks\\MVC\\MVC\\Views\\CourseStudent\\Edit.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\CourseStudent\\Edit.cshtml",
-              "ToolTip": "E:\\ITI-Tasks\\MVC\\MVC\\Views\\CourseStudent\\Edit.cshtml",
-              "RelativeToolTip": "MVC\\Views\\CourseStudent\\Edit.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAADIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-30T18:12:21.83Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "E:\\ITI-Tasks\\MVC\\MVC\\Views\\CourseStudent\\Create.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\CourseStudent\\Create.cshtml",
-              "ToolTip": "E:\\ITI-Tasks\\MVC\\MVC\\Views\\CourseStudent\\Create.cshtml",
-              "RelativeToolTip": "MVC\\Views\\CourseStudent\\Create.cshtml",
-              "ViewState": "AgIAABYAAAAAAAAAAAAIwDAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-30T18:11:57.295Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\ITI-Tasks\\MVC\\MVC\\Views\\CourseStudent\\Index.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\CourseStudent\\Index.cshtml",
-              "ToolTip": "E:\\ITI-Tasks\\MVC\\MVC\\Views\\CourseStudent\\Index.cshtml*",
-              "RelativeToolTip": "MVC\\Views\\CourseStudent\\Index.cshtml*",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABcAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-30T18:11:27.842Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CourseStudents.cs",
-              "DocumentMoniker": "E:\\ITI-Tasks\\MVC\\MVC\\Models\\CourseStudents.cs",
-              "RelativeDocumentMoniker": "MVC\\Models\\CourseStudents.cs",
-              "ToolTip": "E:\\ITI-Tasks\\MVC\\MVC\\Models\\CourseStudents.cs",
-              "RelativeToolTip": "MVC\\Models\\CourseStudents.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAmAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\ITI-Tasks\\MVC\\MVC\\Program.cs",
+              "RelativeDocumentMoniker": "MVC\\Program.cs",
+              "ToolTip": "D:\\ITI-Tasks\\MVC\\MVC\\Program.cs",
+              "RelativeToolTip": "MVC\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-30T18:05:48.5Z",
+              "WhenOpened": "2025-10-06T11:26:24.65Z",
               "EditorCaption": ""
             }
           ]

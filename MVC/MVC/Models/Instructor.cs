@@ -25,12 +25,10 @@ namespace MVC.Models
 
         [Required(ErrorMessage = "Department is required")]
         public int DeptId { get; set; }
-
-        [Required(ErrorMessage = "Course is required")]
-        public int CrsId { get; set; }
+        public int? CrsId { get; set; }
 
         // Navigation
         public Department Department { get; set; }
-        public Course Course { get; set; }
+        public Course? Course { get; set; }
     }
 }
