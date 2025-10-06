@@ -1,8 +1,131 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <!-- Hero Section -->
+    <div class="py-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-4 fw-bold text-primary">University Management System</h1>
+            <p class="lead fs-4">Comprehensive academic management platform for students, courses, and faculty.</p>
+            <div class="mt-4">
+                <a href="/Department" class="btn btn-primary btn-lg me-3">
+                    <i class="bi bi-building"></i> Manage Departments
+                </a>
+                <a href="/Student" class="btn btn-outline-primary btn-lg">
+                    <i class="bi bi-people"></i> View Students
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+   <!-- Quick Stats -->
+<div class="row mb-5">
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">@ViewBag.DepartmentCount</h4>
+                        <p class="card-text">Departments</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="bi bi-building" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">@ViewBag.CourseCount</h4>
+                        <p class="card-text">Courses</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="bi bi-book" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">@ViewBag.StudentCount</h4>
+                        <p class="card-text">Students</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="bi bi-person" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">@ViewBag.InstructorCount</h4>
+                        <p class="card-text">Instructors</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="bi bi-person-badge" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-building text-primary" style="font-size: 3rem;"></i>
+                    <h5 class="card-title mt-3">Departments</h5>
+                    <p class="card-text">Manage academic departments and programs</p>
+                    <a href="/Department" class="btn btn-outline-primary">Manage Departments</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-book text-success" style="font-size: 3rem;"></i>
+                    <h5 class="card-title mt-3">Courses</h5>
+                    <p class="card-text">Create and manage course offerings</p>
+                    <a href="/Course" class="btn btn-outline-success">Manage Courses</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-clipboard-check text-info" style="font-size: 3rem;"></i>
+                    <h5 class="card-title mt-3">Enrollments</h5>
+                    <p class="card-text">Manage student course enrollments</p>
+                    <a href="/CourseStudent" class="btn btn-outline-info">Manage Enrollments</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Info -->
+    <div class="mt-5 p-4 bg-light rounded">
+        <h3>About the System</h3>
+        <p class="lead">
+            This University Management System provides comprehensive tools for managing academic operations, 
+            including student records, course management, faculty administration, and enrollment tracking.
+        </p>
+    </div>
+</div>
+

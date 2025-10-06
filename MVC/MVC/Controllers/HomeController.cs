@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
 
@@ -6,27 +5,40 @@ namespace MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly AppDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(AppDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            try
+            {
+                // Get real counts from database
+                ViewBag.DepartmentCount = _context.Departments.Count();
+                ViewBag.CourseCount = _context.Courses.Count();
+                ViewBag.StudentCount = _context.Students.Count();
+                ViewBag.InstructorCount = _context.Instructors.Count();
+            }
+            catch (Exception ex)
+            {
+                // If there's an error, set default values
+                ViewBag.DepartmentCount = 0;
+                ViewBag.CourseCount = 0;
+                ViewBag.StudentCount = 0;
+                ViewBag.InstructorCount = 0;
+
+                Console.WriteLine($"Error getting counts: {ex.Message}");
+            }
+
             return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
