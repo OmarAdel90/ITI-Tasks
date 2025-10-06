@@ -13,7 +13,7 @@ namespace MVC
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            // In Program.cs
+            // Registering Repositories
             builder.Services.AddScoped<CourseRepository>();
             builder.Services.AddScoped<CourseStudentRepository>();
             builder.Services.AddScoped<DepartmentRepository>();

@@ -8,10 +8,6 @@ namespace MVC.Repositories
         private readonly AppDbContext context;
         public DepartmentRepository(AppDbContext context) => this.context = context;
 
-        public List<Department> ReturnDepartments()
-        {
-            return context.Departments.ToList();
-        }
         public Department ReturnDetails(int id)
         {
             return context.Departments.Find(id);
@@ -40,6 +36,20 @@ namespace MVC.Repositories
             }
             context.Departments.Remove(department);
             context.SaveChanges();
+        }
+        public List<Department> GetDepartmentsBySearch(string searchString)
+        {
+            var query = context.Departments.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(d =>
+                    d.Name.Contains(searchString) ||
+                    d.ManagerName.Contains(searchString)
+                );
+            }
+
+            return query.ToList();
         }
     }
 }

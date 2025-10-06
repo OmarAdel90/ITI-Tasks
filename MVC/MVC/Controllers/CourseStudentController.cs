@@ -9,10 +9,9 @@ namespace MVC.Controllers
     {
         private readonly CourseStudentRepository repo;
         public CourseStudentController(CourseStudentRepository repo) => this.repo = repo;
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            var enrollments = repo.ReturnEnrollments();
-            return View(enrollments);
+            return View(repo.GetEnrollmentsBySearch(searchString));
         }
 
         public IActionResult Create()

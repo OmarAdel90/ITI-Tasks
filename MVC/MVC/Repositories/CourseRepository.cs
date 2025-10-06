@@ -63,6 +63,17 @@ namespace MVC.Repositories
             context.Courses.Remove(course);
             context.SaveChanges();
         }
-       
+        public List<Course> GetCoursesByName(string searchString)
+        {
+            var query = context.Courses.Include(c => c.Department).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(c => c.Name.Contains(searchString));
+            }
+
+            return query.ToList();
+        }
+
     }
 }

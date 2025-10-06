@@ -9,9 +9,9 @@ namespace MVC.Controllers
     {
         private readonly DepartmentRepository repo;
         public DepartmentController(DepartmentRepository repo) => this.repo = repo;
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            List<Department> departments = repo.ReturnDepartments();
+            var departments = repo.GetDepartmentsBySearch(searchString);
             return View(departments);
         }
         public IActionResult Details(int id)

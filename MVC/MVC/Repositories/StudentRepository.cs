@@ -8,10 +8,6 @@ namespace MVC.Repositories
         private readonly AppDbContext context;
         public StudentRepository(AppDbContext context) => this.context = context;
 
-        public List<Student> ReturnStudents()
-        {
-            return context.Students.Include(s => s.Department).ToList();
-        }
         public List<Department> ReturnDepartments()
         {
             return context.Departments.ToList();
@@ -42,6 +38,20 @@ namespace MVC.Repositories
             context.CourseStudents.RemoveRange(enrollments);
             context.Remove(student);
             context.SaveChanges();
+        }
+        public List<Student> GetStudentsBySearch(string searchString)
+        {
+            var query = context.Students.Include(s => s.Department).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(s =>
+                    s.Name.Contains(searchString) ||
+                    (s.Department != null && s.Department.Name.Contains(searchString))
+                );
+            }
+
+            return query.ToList();
         }
     }
 }

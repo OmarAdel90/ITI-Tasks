@@ -8,14 +8,6 @@ namespace MVC.Repositories
         private readonly AppDbContext context;
         public InstructorRepository(AppDbContext context) => this.context = context;
 
-        public List<Instructor> ReturnInstructors()
-        {
-            var instructors = context.Instructors
-                .Include(i => i.Department)
-                .Include(i => i.Course)
-                .ToList();
-            return instructors;
-        }
         public List<Course> ReturnCourses()
         {
             return context.Courses.Include(c => c.Department).ToList();
@@ -50,6 +42,23 @@ namespace MVC.Repositories
             var instructor = context.Instructors.Find(id);
             context.Remove(instructor);
             context.SaveChanges();
+        }
+        public List<Instructor> GetInstructorsBySearch(string searchString)
+        {
+            var query = context.Instructors
+                .Include(i => i.Department)
+                .Include(i => i.Course)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(i =>
+                    i.Name.Contains(searchString) ||
+                    (i.Department != null && i.Department.Name.Contains(searchString))
+                );
+            }
+
+            return query.ToList();
         }
     }
 }

@@ -8,10 +8,17 @@ namespace MVC.Controllers
     {
         private readonly CourseRepository repo;
         public CourseController(CourseRepository repo) => this.repo = repo;
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            List<Course> courses = new List<Course>();
-            courses = repo.ReturnCourses();
+            var courses = repo.ReturnCourses();
+
+            // Apply search filter if provided
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                courses = courses.Where(c => c.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+                ViewBag.CurrentFilter = searchString;
+            }
+
             return View(courses);
         }
         public IActionResult Details(int id)

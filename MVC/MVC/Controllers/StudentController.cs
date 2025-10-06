@@ -9,9 +9,9 @@ namespace MVC.Controllers
     {
         private readonly StudentRepository repo;
         public StudentController(StudentRepository repo) => this.repo = repo;
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            return View(repo.ReturnStudents());
+            return View(repo.GetStudentsBySearch(searchString));
         }
         public IActionResult Details(int id)
         {
@@ -46,5 +46,6 @@ namespace MVC.Controllers
             repo.DeleteStudent(id);
             return RedirectToAction("Index");
         }
+
     }
 }

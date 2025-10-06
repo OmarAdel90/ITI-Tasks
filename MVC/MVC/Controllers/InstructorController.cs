@@ -9,9 +9,10 @@ namespace MVC.Controllers
     {
         private readonly InstructorRepository repo;
         public InstructorController(InstructorRepository repo) => this.repo = repo;
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            return View(repo.ReturnInstructors());
+            // If searchString is null it will return all instructors
+            return View(repo.GetInstructorsBySearch(searchString));
         }
         public IActionResult Create(int id)
         {
