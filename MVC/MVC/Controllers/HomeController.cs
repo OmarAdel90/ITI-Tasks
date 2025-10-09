@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MVC.Models;
+using System.Diagnostics;
 
 namespace MVC.Controllers
 {
@@ -12,25 +14,23 @@ namespace MVC.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            try
+            // Populate ViewBag with counts for authenticated users
+            if (User.Identity.IsAuthenticated)
             {
-                // Get real counts from database
-                ViewBag.DepartmentCount = _context.Departments.Count();
-                ViewBag.CourseCount = _context.Courses.Count();
-                ViewBag.StudentCount = _context.Students.Count();
-                ViewBag.InstructorCount = _context.Instructors.Count();
+                ViewBag.DepartmentCount = await _context.Departments.CountAsync();
+                ViewBag.CourseCount = await _context.Courses.CountAsync();
+                ViewBag.StudentCount = await _context.Students.CountAsync();
+                ViewBag.InstructorCount = await _context.Instructors.CountAsync();
             }
-            catch (Exception ex)
+            else
             {
-                // If there's an error, set default values
+                // Default values for unauthenticated users
                 ViewBag.DepartmentCount = 0;
                 ViewBag.CourseCount = 0;
                 ViewBag.StudentCount = 0;
                 ViewBag.InstructorCount = 0;
-
-                Console.WriteLine($"Error getting counts: {ex.Message}");
             }
 
             return View();
@@ -39,6 +39,12 @@ namespace MVC.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

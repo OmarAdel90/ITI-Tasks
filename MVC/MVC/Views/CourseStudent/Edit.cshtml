@@ -6,43 +6,71 @@
 }
 
 <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Edit Enrollment</h2>
-
-            <form asp-action="Edit" method="post">
-                <input type="hidden" asp-for="Id" />
-                
-                <div class="form-group mb-3">
-                    <label asp-for="StdId" class="control-label">Student</label>
-                    <select asp-for="StdId" class="form-control" required
-                            asp-items="@(new SelectList(ViewBag.Students, "Id", "Name"))">
-                        <option value="">-- Select Student --</option>
-                    </select>
-                    <span asp-validation-for="StdId" class="text-danger"></span>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-pencil"></i> Edit Enrollment
+                    </h4>
                 </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="CrsId" class="control-label">Course</label>
-                    <select asp-for="CrsId" class="form-control" required
-                            asp-items="@(new SelectList(ViewBag.Courses, "Id", "Name"))">
-                        <option value="">-- Select Course --</option>
-                    </select>
-                    <span asp-validation-for="CrsId" class="text-danger"></span>
+                <div class="card-body">
+                    @if (!User.IsInRole("Admin") && !User.IsInRole("HR"))
+                    {
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle"></i> 
+                            You do not have permission to edit enrollments. Only Admin and HR can modify enrollments.
+                        </div>
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    }
+                    else
+                    {
+                        <form asp-action="Edit" method="post">
+                            <input type="hidden" asp-for="Id" />
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label asp-for="StdId" class="form-label fw-bold">Student</label>
+                                        <select asp-for="StdId" class="form-control" required
+                                                asp-items="@(new SelectList(ViewBag.Students, "Id", "Name"))">
+                                            <option value="">-- Select Student --</option>
+                                        </select>
+                                        <span asp-validation-for="StdId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label asp-for="CrsId" class="form-label fw-bold">Course</label>
+                                        <select asp-for="CrsId" class="form-control" required
+                                                asp-items="@(new SelectList(ViewBag.Courses, "Id", "Name"))">
+                                            <option value="">-- Select Course --</option>
+                                        </select>
+                                        <span asp-validation-for="CrsId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label asp-for="Degree" class="form-label fw-bold">Grade</label>
+                                <input asp-for="Degree" class="form-control" type="number" required 
+                                       placeholder="Enter student's grade (0-100)" min="0" max="100" />
+                                <span asp-validation-for="Degree" class="text-danger"></span>
+                                <small class="form-text text-muted">Enter a grade between 0 and 100</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle"></i> Save Changes
+                                </button>
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    <i class="bi bi-arrow-left"></i> Back to List
+                                </a>
+                            </div>
+                        </form>
+                    }
                 </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="Degree" class="control-label">Degree</label>
-                    <input asp-for="Degree" class="form-control" type="number" required 
-                           placeholder="Enter student's degree (0-100)" min="0" max="100" />
-                    <span asp-validation-for="Degree" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

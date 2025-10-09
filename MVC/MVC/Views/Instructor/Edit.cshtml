@@ -6,64 +6,96 @@
 }
 
 <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Edit Instructor</h2>
-
-            <form asp-action="Edit" method="post">
-                <input type="hidden" asp-for="Id" />
-                
-                <div class="form-group mb-3">
-                    <label asp-for="Name" class="control-label">Instructor Name</label>
-                    <input asp-for="Name" class="form-control" type="text" required 
-                           placeholder="Enter instructor name" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-pencil"></i> Edit Instructor
+                    </h4>
                 </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="Salary" class="control-label">Salary</label>
-                    <input asp-for="Salary" class="form-control" type="number" required 
-                           placeholder="Enter salary" />
-                    <span asp-validation-for="Salary" class="text-danger"></span>
+                <div class="card-body">
+                    @if (!User.IsInRole("Admin") && !User.IsInRole("HR") && 
+                        !(User.IsInRole("Instructor") && Model.Id.ToString() == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value))
+                    {
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle"></i> 
+                            You do not have permission to edit this instructor. You can only edit your own profile.
+                        </div>
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    }
+                    else
+                    {
+                        <form asp-action="Edit" method="post">
+                            @Html.AntiForgeryToken()
+                            
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="UserId" />
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label asp-for="Name" class="form-label fw-bold">Instructor Name</label>
+                                        <input asp-for="Name" class="form-control" type="text" required 
+                                               placeholder="Enter instructor name" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                    
+                                    <div class="form-group mb-3">
+                                        <label asp-for="Salary" class="form-label fw-bold">Salary</label>
+                                        <input asp-for="Salary" class="form-control" type="number" required 
+                                               placeholder="Enter salary" />
+                                        <span asp-validation-for="Salary" class="text-danger"></span>
+                                    </div>
+                                    
+                                    <div class="form-group mb-3">
+                                        <label asp-for="Address" class="form-label fw-bold">Address</label>
+                                        <input asp-for="Address" class="form-control" type="text" required 
+                                               placeholder="Enter address" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label asp-for="Image" class="form-label fw-bold">Image URL</label>
+                                        <input asp-for="Image" class="form-control" type="text" 
+                                               placeholder="Enter image URL" />
+                                        <span asp-validation-for="Image" class="text-danger"></span>
+                                    </div>
+                                    
+                                    <div class="form-group mb-3">
+                                        <label asp-for="DeptId" class="form-label fw-bold">Department</label>
+                                        <select asp-for="DeptId" class="form-control" required
+                                                asp-items="@(new SelectList(ViewBag.Departments, "Id", "Name"))">
+                                            <option value="">-- Select Department --</option>
+                                        </select>
+                                        <span asp-validation-for="DeptId" class="text-danger"></span>
+                                    </div>
+                                    
+                                    <div class="form-group mb-3">
+                                        <label asp-for="CrsId" class="form-label fw-bold">Course Assignment</label>
+                                        <select asp-for="CrsId" class="form-control" name="CrsId"
+                                                asp-items="@(new SelectList(ViewBag.Courses, "Id", "Name", Model.CrsId))">
+                                            <option value="">-- No Course Assigned --</option>
+                                        </select>
+                                        <span asp-validation-for="CrsId" class="text-danger"></span>
+                                        <small class="form-text text-muted">Select a course to assign to this instructor</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle"></i> Save Changes
+                                </button>
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    <i class="bi bi-arrow-left"></i> Cancel
+                                </a>
+                            </div>
+                        </form>
+                    }
                 </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="Address" class="control-label">Address</label>
-                    <input asp-for="Address" class="form-control" type="text" required 
-                           placeholder="Enter address" />
-                    <span asp-validation-for="Address" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="Image" class="control-label">Image URL</label>
-                    <input asp-for="Image" class="form-control" type="text" 
-                           placeholder="Enter image URL (optional)" />
-                    <span asp-validation-for="Image" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="DeptId" class="control-label">Department</label>
-                    <select asp-for="DeptId" class="form-control" required
-                            asp-items="@(new SelectList(ViewBag.Departments, "Id", "Name"))">
-                        <option value="">-- Select Department --</option>
-                    </select>
-                    <span asp-validation-for="DeptId" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="CrsId" class="control-label">Course</label>
-                    <select asp-for="CrsId" class="form-control"
-                            asp-items="@(new SelectList(ViewBag.Courses, "Id", "Name"))">
-                        <option value="">-- No Course Selected --</option>
-                    </select>
-                    <span asp-validation-for="CrsId" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

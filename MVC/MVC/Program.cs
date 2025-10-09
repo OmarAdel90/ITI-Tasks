@@ -1,42 +1,77 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MVC.Models;
 using MVC.Repositories;
-namespace MVC
-{
-    public class Program
+using MVC.Services;
+using MVC.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+// Database Context
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Cookie Authentication ONLY
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromHours(2);
+        options.SlidingExpiration = true;
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    });
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            // Registering Repositories
-            builder.Services.AddScoped<CourseRepository>();
-            builder.Services.AddScoped<CourseStudentRepository>();
-            builder.Services.AddScoped<DepartmentRepository>();
-            builder.Services.AddScoped<InstructorRepository>();
-            builder.Services.AddScoped<StudentRepository>();
-            var app = builder.Build();
+builder.Services.AddAuthorization();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-            app.UseRouting();
+// Repositories
+builder.Services.AddScoped<AccountRepository>();
+builder.Services.AddScoped<CourseRepository>();
+builder.Services.AddScoped<CourseStudentRepository>();
+builder.Services.AddScoped<InstructorRepository>();
+builder.Services.AddScoped<StudentRepository>();
+builder.Services.AddScoped<DepartmentRepository>();
 
-            app.UseAuthorization();
+// Services
+builder.Services.AddScoped<IAuthService, AuthService>();
 
-            app.MapStaticAssets();
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
+var app = builder.Build();
 
-            app.Run();
-        }
+// Seed default users
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    try
+    {
+        Seed.Initialize(context);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred while seeding the database: {ex.Message}");
     }
 }
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();

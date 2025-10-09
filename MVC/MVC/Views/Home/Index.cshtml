@@ -9,115 +9,281 @@
         <div class="container-fluid py-5">
             <h1 class="display-4 fw-bold text-primary">University Management System</h1>
             <p class="lead fs-4">Comprehensive academic management platform for students, courses, and faculty.</p>
-            <div class="mt-4">
-                <a href="/Department" class="btn btn-primary btn-lg me-3">
-                    <i class="bi bi-building"></i> Manage Departments
-                </a>
-                <a href="/Student" class="btn btn-outline-primary btn-lg">
-                    <i class="bi bi-people"></i> View Students
-                </a>
-            </div>
+            
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <!-- Show login/register buttons for unauthenticated users -->
+                <div class="mt-4">
+                    <a href="/Account/Login" class="btn btn-primary btn-lg me-3">
+                        <i class="bi bi-box-arrow-in-right"></i> Login
+                    </a>
+                    <a href="/Account/Register" class="btn btn-outline-primary btn-lg">
+                        <i class="bi bi-person-plus"></i> Register
+                    </a>
+                </div>
+            }
+            else
+            {
+                <!-- Show role-specific welcome message -->
+                <div class="mt-4">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <p class="fs-5 text-success">Welcome, Administrator! Full system access granted.</p>
+                        <a href="/Department" class="btn btn-primary btn-lg me-3">
+                            <i class="bi bi-building"></i> Manage Departments
+                        </a>
+                        <a href="/Student" class="btn btn-outline-primary btn-lg">
+                            <i class="bi bi-people"></i> View Students
+                        </a>
+                    }
+                    else if (User.IsInRole("HR"))
+                    {
+                        <p class="fs-5 text-success">Welcome, HR Manager! Staff and student management access.</p>
+                        <a href="/Student" class="btn btn-primary btn-lg me-3">
+                            <i class="bi bi-person"></i> Manage Students
+                        </a>
+                        <a href="/Instructor" class="btn btn-outline-primary btn-lg">
+                            <i class="bi bi-person-badge"></i> Manage Instructors
+                        </a>
+                    }
+                    else if (User.IsInRole("Instructor"))
+                    {
+                        <p class="fs-5 text-success">Welcome, Instructor! Course management access.</p>
+                        <a href="/Course" class="btn btn-primary btn-lg me-3">
+                            <i class="bi bi-book"></i> My Courses
+                        </a>
+                        <a href="/Student" class="btn btn-outline-primary btn-lg">
+                            <i class="bi bi-people"></i> View Students
+                        </a>
+                    }
+                    else if (User.IsInRole("Student"))
+                    {
+                        <p class="fs-5 text-success">Welcome, Student! Course enrollment and profile access.</p>
+                        <a href="/CourseStudent" class="btn btn-primary btn-lg me-3">
+                            <i class="bi bi-clipboard-check"></i> My Enrollments
+                        </a>
+                        <a href="/Student" class="btn btn-outline-primary btn-lg">
+                            <i class="bi bi-person"></i> My Profile
+                        </a>
+                    }
+                </div>
+            }
         </div>
     </div>
 
-    <!-- Quick Stats -->
-   <!-- Quick Stats -->
-<div class="row mb-5">
-    <div class="col-md-3 mb-3">
-        <div class="card text-white bg-primary">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h4 class="card-title">@ViewBag.DepartmentCount</h4>
-                        <p class="card-text">Departments</p>
-                    </div>
-                    <div class="align-self-center">
-                        <i class="bi bi-building" style="font-size: 2rem;"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="card text-white bg-success">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h4 class="card-title">@ViewBag.CourseCount</h4>
-                        <p class="card-text">Courses</p>
-                    </div>
-                    <div class="align-self-center">
-                        <i class="bi bi-book" style="font-size: 2rem;"></i>
+    <!-- Quick Stats - Only show for authenticated users -->
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row mb-5">
+            <!-- Departments - Show to all authenticated users -->
+            <div class="col-md-3 mb-3">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="card-title">@ViewBag.DepartmentCount</h4>
+                                <p class="card-text">Departments</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-building" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="card text-white bg-warning">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h4 class="card-title">@ViewBag.StudentCount</h4>
-                        <p class="card-text">Students</p>
-                    </div>
-                    <div class="align-self-center">
-                        <i class="bi bi-person" style="font-size: 2rem;"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="card text-white bg-info">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h4 class="card-title">@ViewBag.InstructorCount</h4>
-                        <p class="card-text">Instructors</p>
-                    </div>
-                    <div class="align-self-center">
-                        <i class="bi bi-person-badge" style="font-size: 2rem;"></i>
+            
+            <!-- Courses - Show to all authenticated users -->
+            <div class="col-md-3 mb-3">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="card-title">@ViewBag.CourseCount</h4>
+                                <p class="card-text">Courses</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-book" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- Students - Show to Admin, HR, Instructor -->
+            @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Instructor"))
+            {
+                <div class="col-md-3 mb-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">@ViewBag.StudentCount</h4>
+                                    <p class="card-text">Students</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-person" style="font-size: 2rem;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (User.IsInRole("Student"))
+            {
+                <!-- Student-specific stat -->
+                <div class="col-md-3 mb-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">My Profile</h4>
+                                    <p class="card-text">View & Edit</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-person-check" style="font-size: 2rem;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+            <!-- Instructors - Show to Admin, HR, Instructor -->
+            @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Instructor"))
+            {
+                <div class="col-md-3 mb-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">@ViewBag.InstructorCount</h4>
+                                    <p class="card-text">Instructors</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-person-badge" style="font-size: 2rem;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (User.IsInRole("Student"))
+            {
+                <!-- Student-specific stat -->
+                <div class="col-md-3 mb-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">My Courses</h4>
+                                    <p class="card-text">Enrollments</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-journal-check" style="font-size: 2rem;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-    </div>
-</div>
+    }
 
-    <!-- Quick Actions -->
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-building text-primary" style="font-size: 3rem;"></i>
-                    <h5 class="card-title mt-3">Departments</h5>
-                    <p class="card-text">Manage academic departments and programs</p>
-                    <a href="/Department" class="btn btn-outline-primary">Manage Departments</a>
+    <!-- Quick Actions - Only show for authenticated users -->
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            <!-- Departments - All authenticated users -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-building text-primary" style="font-size: 3rem;"></i>
+                        <h5 class="card-title mt-3">Departments</h5>
+                        <p class="card-text">Manage academic departments and programs</p>
+                        <a href="/Department" class="btn btn-outline-primary">View Departments</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-book text-success" style="font-size: 3rem;"></i>
-                    <h5 class="card-title mt-3">Courses</h5>
-                    <p class="card-text">Create and manage course offerings</p>
-                    <a href="/Course" class="btn btn-outline-success">Manage Courses</a>
+            
+            <!-- Courses - All authenticated users -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-book text-success" style="font-size: 3rem;"></i>
+                        <h5 class="card-title mt-3">Courses</h5>
+                        <p class="card-text">
+                            @if (User.IsInRole("Instructor"))
+                            {
+                                <text>View and manage your courses</text>
+                            }
+                            else if (User.IsInRole("Student"))
+                            {
+                                <text>Browse available courses</text>
+                            }
+                            else
+                            {
+                                <text>Create and manage course offerings</text>
+                            }
+                        </p>
+                        <a href="/Course" class="btn btn-outline-success">
+                            @if (User.IsInRole("Instructor"))
+                            {
+                                <text>My Courses</text>
+                            }
+                            else
+                            {
+                                <text>View Courses</text>
+                            }
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-clipboard-check text-info" style="font-size: 3rem;"></i>
-                    <h5 class="card-title mt-3">Enrollments</h5>
-                    <p class="card-text">Manage student course enrollments</p>
-                    <a href="/CourseStudent" class="btn btn-outline-info">Manage Enrollments</a>
+            
+            <!-- Third Card - Role Specific -->
+            @if (User.IsInRole("Admin") || User.IsInRole("HR"))
+            {
+                <!-- Enrollments for Admin/HR -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-clipboard-check text-info" style="font-size: 3rem;"></i>
+                            <h5 class="card-title mt-3">Enrollments</h5>
+                            <p class="card-text">Manage student course enrollments</p>
+                            <a href="/CourseStudent" class="btn btn-outline-info">Manage Enrollments</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
+            else if (User.IsInRole("Instructor"))
+            {
+                <!-- Students for Instructors -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-people text-warning" style="font-size: 3rem;"></i>
+                            <h5 class="card-title mt-3">Students</h5>
+                            <p class="card-text">View and manage student information</p>
+                            <a href="/Student" class="btn btn-outline-warning">View Students</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (User.IsInRole("Student"))
+            {
+                <!-- Profile for Students -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-person-check text-primary" style="font-size: 3rem;"></i>
+                            <h5 class="card-title mt-3">My Profile</h5>
+                            <p class="card-text">View and edit your student profile</p>
+                            <a href="/Student" class="btn btn-outline-primary">My Profile</a>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-    </div>
+    }
 
     <!-- System Info -->
     <div class="mt-5 p-4 bg-light rounded">
@@ -126,6 +292,11 @@
             This University Management System provides comprehensive tools for managing academic operations, 
             including student records, course management, faculty administration, and enrollment tracking.
         </p>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="mt-3">
+                <a href="/Account/Register" class="btn btn-primary">Get Started - Register Now</a>
+            </div>
+        }
     </div>
 </div>
-

@@ -1,50 +1,175 @@
 ﻿@model MVC.Models.CourseStudents
-
 @{
-    ViewData["Title"] = "Create New Enrollment";
+    ViewData["Title"] = "Enroll in Course";
     Layout = "~/Views/Shared/_CustomLayout.cshtml";
 }
 
 <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Create New Enrollment</h2>
-
-            <form asp-action="Create" method="post">
-                <div class="form-group mb-3">
-                    <label asp-for="StdId" class="control-label">Student</label>
-                    <select asp-for="StdId" class="form-control" required
-                            asp-items="@(new SelectList(ViewBag.Students, "Id", "Name"))">
-                        <option value="">-- Select Student --</option>
-                    </select>
-                    <span asp-validation-for="StdId" class="text-danger"></span>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="bi bi-book"></i> Enroll in a New Course
+                    </h3>
                 </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="CrsId" class="control-label">Course</label>
-                    <select asp-for="CrsId" class="form-control" required
-                            asp-items="@(new SelectList(ViewBag.Courses, "Id", "Name"))">
-                        <option value="">-- Select Course --</option>
-                    </select>
-                    <span asp-validation-for="CrsId" class="text-danger"></span>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle-fill"></i> @TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+                    
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill"></i> @TempData["Error"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+                    
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <strong>Please correct the following errors:</strong>
+                            <ul class="mb-0 mt-2">
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+                    
+                    @if (ViewBag.StudentName != null)
+                    {
+                        <div class="alert alert-info mb-3">
+                            <i class="bi bi-person-fill"></i> <strong>Student:</strong> @ViewBag.StudentName
+                        </div>
+                    }
+                    
+                    @if (ViewBag.Courses != null && !((IEnumerable<MVC.Models.Course>)ViewBag.Courses).Any())
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            <i class="bi bi-info-circle-fill"></i>
+                            <strong>All courses enrolled!</strong><br />
+                            You are already enrolled in all available courses.
+                        </div>
+                        <div class="d-grid">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to My Enrollments
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <form asp-action="Create" method="post">
+                            <div class="mb-3">
+                                <label asp-for="CrsId" class="form-label">
+                                    <i class="bi bi-journal-bookmark"></i> Select Course
+                                </label>
+                                <select asp-for="CrsId" class="form-select form-select-lg" required
+                                        asp-items="@(new SelectList(ViewBag.Courses, "Id", "Name"))">
+                                    <option value="">-- Select a Course to Enroll --</option>
+                                </select>
+                                <span asp-validation-for="CrsId" class="text-danger"></span>
+                            </div>
+                            
+                            <!-- Hidden fields -->
+                            <input type="hidden" asp-for="Degree" value="0" />
+                            <input type="hidden" asp-for="StdId" value="@ViewBag.StudentId" />
+                            
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-plus-circle"></i> Enroll in Course
+                                </button>
+                                <a asp-action="Index" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-left"></i> Back to My Enrollments
+                                </a>
+                            </div>
+                        </form>
+                        
+                        @if (ViewBag.Courses != null && ((IEnumerable<MVC.Models.Course>)ViewBag.Courses).Any())
+                        {
+                            <div class="mt-4">
+                                <h5 class="mb-3">
+                                    <i class="bi bi-list-ul"></i> Available Courses
+                                </h5>
+                                <div class="list-group">
+                                    @foreach (var course in (IEnumerable<MVC.Models.Course>)ViewBag.Courses)
+                                    {
+                                        <div class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1">@course.Name</h6>
+                                                <small class="text-muted">
+                                                    <i class="bi bi-clock"></i> @course.Hours hrs
+                                                </small>
+                                            </div>
+                                            <p class="mb-1 text-muted">
+                                                <i class="bi bi-building"></i> @course.Department?.Name
+                                            </p>
+                                            <small class="text-muted">
+                                                <i class="bi bi-award"></i> Total: @course.Degree | Minimum: @course.MinimumDegree
+                                            </small>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="Degree" class="control-label">Degree</label>
-                    <input asp-for="Degree" class="form-control" type="number" required 
-                           placeholder="Enter student's degree (0-100)" min="0" max="100" />
-                    <span asp-validation-for="Degree" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group">
-                    <input type="submit" value="Create Enrollment" class="btn btn-primary" />
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Auto-hide success messages after 5 seconds
+        setTimeout(function() {
+            var successAlert = document.querySelector('.alert-success');
+            if (successAlert) {
+                var bsAlert = new bootstrap.Alert(successAlert);
+                bsAlert.close();
+            }
+        }, 5000);
+    </script>
 }
+
+<style>
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+    
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+        padding: 1rem 1.5rem;
+    }
+    
+    .form-control, .form-select {
+        border-radius: 5px;
+        padding: 0.75rem;
+    }
+    
+    .btn {
+        border-radius: 5px;
+        padding: 0.75rem;
+        font-weight: 500;
+    }
+    
+    .list-group-item {
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+        border: 1px solid #dee2e6;
+    }
+    
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+    }
+</style>

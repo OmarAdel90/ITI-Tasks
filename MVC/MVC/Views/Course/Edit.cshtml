@@ -6,55 +6,82 @@
 }
 
 <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Edit Course</h2>
-
-            <form asp-action="Edit" method="post">
-                <input type="hidden" asp-for="Id" />
-                
-                <div class="form-group mb-3">
-                    <label asp-for="Name" class="control-label">Course Name</label>
-                    <input asp-for="Name" class="form-control" type="text" required 
-                           placeholder="Enter course name" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-pencil"></i> Edit Course
+                    </h4>
                 </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="Degree" class="control-label">Degree</label>
-                    <input asp-for="Degree" class="form-control" type="number" required 
-                           placeholder="Enter course degree" />
-                    <span asp-validation-for="Degree" class="text-danger"></span>
+                <div class="card-body">
+                    @if (!User.IsInRole("Admin"))
+                    {
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle"></i> 
+                            You do not have permission to edit courses. Only Administrators can modify courses.
+                        </div>
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    }
+                    else
+                    {
+                        <form asp-action="Edit" method="post">
+                            <input type="hidden" asp-for="Id" />
+                            
+                            <div class="form-group mb-3">
+                                <label asp-for="Name" class="form-label fw-bold">Course Name</label>
+                                <input asp-for="Name" class="form-control" type="text" required 
+                                       placeholder="Enter course name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label asp-for="Degree" class="form-label fw-bold">Total Degree</label>
+                                        <input asp-for="Degree" class="form-control" type="number" required 
+                                               placeholder="Enter total degree" min="0" max="100" />
+                                        <span asp-validation-for="Degree" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label asp-for="MinimumDegree" class="form-label fw-bold">Minimum Degree</label>
+                                        <input asp-for="MinimumDegree" class="form-control" type="number" required 
+                                               placeholder="Enter minimum required degree" min="0" max="100" />
+                                        <span asp-validation-for="MinimumDegree" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label asp-for="Hours" class="form-label fw-bold">Course Hours</label>
+                                <input asp-for="Hours" class="form-control" type="number" required 
+                                       placeholder="Enter course hours" min="1" max="100" />
+                                <span asp-validation-for="Hours" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label asp-for="DeptId" class="form-label fw-bold">Department</label>
+                                <select asp-for="DeptId" class="form-control" required
+                                        asp-items="@(new SelectList(ViewBag.Departments, "Id", "Name"))">
+                                    <option value="">-- Select Department --</option>
+                                </select>
+                                <span asp-validation-for="DeptId" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle"></i> Save Changes
+                                </button>
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    <i class="bi bi-arrow-left"></i> Cancel
+                                </a>
+                            </div>
+                        </form>
+                    }
                 </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="MinimumDegree" class="control-label">Minimum Degree</label>
-                    <input asp-for="MinimumDegree" class="form-control" type="number" required 
-                           placeholder="Enter minimum required degree" />
-                    <span asp-validation-for="MinimumDegree" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="Hours" class="control-label">Hours</label>
-                    <input asp-for="Hours" class="form-control" type="number" required 
-                           placeholder="Enter course hours" />
-                    <span asp-validation-for="Hours" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group mb-3">
-                    <label asp-for="DeptId" class="control-label">Department</label>
-                    <select asp-for="DeptId" class="form-control" required
-                            asp-items="@(new SelectList(ViewBag.Departments, "Id", "Name"))">
-                        <option value="">-- Select Department --</option>
-                    </select>
-                    <span asp-validation-for="DeptId" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

@@ -10,7 +10,7 @@ namespace MVC.Models
         [RegularExpression(@"^[A-Za-z0-9\s\-&]+$", ErrorMessage = "Only letters, numbers, spaces, hyphens, and ampersands allowed")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Degree is required")]
-        [Range(100, 200, ErrorMessage = "Degree must be between 100 and 200")]
+        [Range(100, 300, ErrorMessage = "Degree must be between 100 and 200")]
         public int Degree { get; set; }
         [Required(ErrorMessage = "Minimum Degree is required")]
         [Range(50, 100, ErrorMessage = "Minimum Degree must be between 50 and 100")]

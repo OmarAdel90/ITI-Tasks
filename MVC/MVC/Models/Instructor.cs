@@ -6,6 +6,8 @@ namespace MVC.Models
     public class Instructor
     {
         public int Id { get; set; }
+        // For AspNetUsers
+        public string UserId { get; set; }
 
         [Required(ErrorMessage = "Instructor name is required")]
         [StringLength(100, ErrorMessage = "Instructor name cannot exceed 100 characters")]
